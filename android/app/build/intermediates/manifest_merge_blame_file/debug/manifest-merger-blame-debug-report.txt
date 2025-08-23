@@ -1,0 +1,129 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.job_finding"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="33" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:4:5-67
+14-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:4:22-64
+15    <!--
+16     Optional: if you plan to read media directly on older Androids
+17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+18    -->
+19    <!-- Package visibility (Android 11+) so you can check/open WhatsApp if needed -->
+20    <queries>
+20-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:11:5-17:15
+21        <package android:name="com.whatsapp" />
+21-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:12:9-48
+21-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:12:18-45
+22
+23        <intent>
+23-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:13:9-16:18
+24            <action android:name="android.intent.action.VIEW" />
+24-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:14:13-65
+24-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:14:21-62
+25
+26            <data android:scheme="whatsapp" />
+26-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:15:13-47
+26-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:15:19-44
+27        </intent>
+28        <intent>
+28-->[:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-16:18
+29            <action android:name="android.intent.action.GET_CONTENT" />
+29-->[:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-72
+29-->[:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:21-69
+30
+31            <data android:mimeType="*/*" />
+31-->C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:15:13-47
+32        </intent>
+33    </queries>
+34
+35    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+35-->[:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
+35-->[:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-77
+36
+37    <permission
+37-->[androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+38        android:name="com.example.job_finding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+38-->[androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+39        android:protectionLevel="signature" />
+39-->[androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+40
+41    <uses-permission android:name="com.example.job_finding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+41-->[androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+41-->[androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+42
+43    <application
+44        android:name="android.app.Application"
+45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+45-->[androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+46        android:debuggable="true"
+47        android:hardwareAccelerated="true"
+48        android:icon="@mipmap/ic_launcher"
+49        android:label="Job Finding"
+50        android:largeHeap="true" >
+51        <activity
+52            android:name="com.example.job_finding.MainActivity"
+53            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+54            android:exported="true"
+55            android:hardwareAccelerated="true"
+56            android:launchMode="singleTop"
+57            android:theme="@style/LaunchTheme"
+58            android:windowSoftInputMode="adjustResize" >
+59
+60            <!--
+61                 Specifies an Android theme to apply to this Activity as soon as
+62                 the Android process has started. This theme is visible to the user
+63                 while the Flutter UI initializes. After that, this theme continues
+64                 to determine the Window background behind the Flutter UI.
+65            -->
+66            <meta-data
+67                android:name="io.flutter.embedding.android.NormalTheme"
+68                android:resource="@style/NormalTheme" />
+69
+70            <intent-filter>
+71                <action android:name="android.intent.action.MAIN" />
+72
+73                <category android:name="android.intent.category.LAUNCHER" />
+74            </intent-filter>
+75        </activity>
+76        <!--
+77             Don't delete the meta-data below.
+78             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+79        -->
+80        <meta-data
+81            android:name="flutterEmbedding"
+82            android:value="2" />
+83
+84        <activity
+84-->[:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+85            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+85-->[:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+86            android:exported="false"
+86-->[:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+87            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+87-->[:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+88
+89        <uses-library
+89-->[androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+90            android:name="androidx.window.extensions"
+90-->[androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+91            android:required="false" />
+91-->[androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+92        <uses-library
+92-->[androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+93            android:name="androidx.window.sidecar"
+93-->[androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+94            android:required="false" />
+94-->[androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+95    </application>
+96
+97</manifest>

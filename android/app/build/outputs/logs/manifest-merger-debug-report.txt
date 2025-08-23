@@ -1,0 +1,193 @@
+-- Merging decision tree log ---
+application
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:19:5-50:19
+MERGED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
+MERGED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\2fb5e7529a084d782f7538ec4297d4e2\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\2fb5e7529a084d782f7538ec4297d4e2\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+	android:name
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+manifest
+ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:1-51:12
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:1-51:12
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:1-51:12
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:1-51:12
+MERGED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:1-51:12
+MERGED from [:shared_preferences_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\shared_preferences_android-2.2.0\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
+MERGED from [:flutter_plugin_android_lifecycle] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_plugin_android_lifecycle-2.0.15\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:sqflite] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\sqflite-2.2.8+4\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-16:12
+MERGED from [:path_provider_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider_android-2.1.0\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\baad4b5b5031e0620a18e22f5b27b505\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\291692b85599bb811ed56c1038417e94\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\6c24345fdf59702dc4e3a6019ea802da\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\69d8fa6e4627a5e2b7d7ce211a6e65f5\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\8653e7d691d247ad5964a38c3e41dd56\transformed\jetified-activity-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\1d85e9801bdaa016416bd6bbc4ba0df9\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\8ceba7164cdea89e6b02bbbad02f0f85\transformed\lifecycle-runtime-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\2fb5e7529a084d782f7538ec4297d4e2\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\6d54194e7ce516455c36e16d85292142\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\4ae2e642d51c1f5f830365d921f28551\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\58dbd7fc85df65e5d1a5704a65b66c5d\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\b746ad025feecffa5d3b9edd79ab71d8\transformed\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\14bbcecd575e97becc9be7d0009e2049\transformed\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\deafc0d5bceb2822670775bdf149064c\transformed\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.2.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\17d7ed90fbc6f39852965ffa4492ec4e\transformed\jetified-annotation-experimental-1.2.0\AndroidManifest.xml:17:1-24:12
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:2:5-38
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:4:5-67
+MERGED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:4:5-67
+MERGED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:4:5-67
+	android:name
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:4:22-64
+queries
+ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:11:5-17:15
+MERGED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
+MERGED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
+package#com.whatsapp
+ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:12:9-48
+	android:name
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:12:18-45
+intent#action:name:android.intent.action.VIEW+data:scheme:whatsapp
+ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:13:9-16:18
+action#android.intent.action.VIEW
+ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:14:13-65
+	android:name
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:14:21-62
+data
+ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:15:13-47
+	android:scheme
+		ADDED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml:15:19-44
+uses-sdk
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+MERGED from [:shared_preferences_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\shared_preferences_android-2.2.0\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\shared_preferences_android-2.2.0\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_plugin_android_lifecycle] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_plugin_android_lifecycle-2.0.15\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_plugin_android_lifecycle] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_plugin_android_lifecycle-2.0.15\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\sqflite-2.2.8+4\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\sqflite-2.2.8+4\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider_android-2.1.0\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider_android-2.1.0\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\baad4b5b5031e0620a18e22f5b27b505\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\baad4b5b5031e0620a18e22f5b27b505\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\291692b85599bb811ed56c1038417e94\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\291692b85599bb811ed56c1038417e94\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\6c24345fdf59702dc4e3a6019ea802da\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\6c24345fdf59702dc4e3a6019ea802da\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\69d8fa6e4627a5e2b7d7ce211a6e65f5\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\69d8fa6e4627a5e2b7d7ce211a6e65f5\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\8653e7d691d247ad5964a38c3e41dd56\transformed\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\8653e7d691d247ad5964a38c3e41dd56\transformed\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\1d85e9801bdaa016416bd6bbc4ba0df9\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\1d85e9801bdaa016416bd6bbc4ba0df9\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\8ceba7164cdea89e6b02bbbad02f0f85\transformed\lifecycle-runtime-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\8ceba7164cdea89e6b02bbbad02f0f85\transformed\lifecycle-runtime-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\2fb5e7529a084d782f7538ec4297d4e2\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\2fb5e7529a084d782f7538ec4297d4e2\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\6d54194e7ce516455c36e16d85292142\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\6d54194e7ce516455c36e16d85292142\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\4ae2e642d51c1f5f830365d921f28551\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\4ae2e642d51c1f5f830365d921f28551\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\58dbd7fc85df65e5d1a5704a65b66c5d\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\58dbd7fc85df65e5d1a5704a65b66c5d\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\b746ad025feecffa5d3b9edd79ab71d8\transformed\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\b746ad025feecffa5d3b9edd79ab71d8\transformed\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\14bbcecd575e97becc9be7d0009e2049\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\14bbcecd575e97becc9be7d0009e2049\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\deafc0d5bceb2822670775bdf149064c\transformed\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\deafc0d5bceb2822670775bdf149064c\transformed\lifecycle-viewmodel-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.2.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\17d7ed90fbc6f39852965ffa4492ec4e\transformed\jetified-annotation-experimental-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.2.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\17d7ed90fbc6f39852965ffa4492ec4e\transformed\jetified-annotation-experimental-1.2.0\AndroidManifest.xml:20:5-22:41
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml
+INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Moutia bensaad\AndroidStudioProjects\job_finding-main\android\app\src\debug\AndroidManifest.xml
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
+	android:name
+		ADDED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-77
+intent#action:name:android.intent.action.GET_CONTENT+data:mimeType:*/*
+ADDED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-16:18
+action#android.intent.action.GET_CONTENT
+ADDED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-72
+	android:name
+		ADDED from [:file_picker] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\file_picker-4.6.1\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:21-69
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+	android:exported
+		ADDED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+	android:theme
+		ADDED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+	android:name
+		ADDED from [:url_launcher_android] C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\url_launcher_android-6.0.38\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\72fb5ef62ac32d119a37d4678fe645f3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+permission#com.example.job_finding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+uses-permission#com.example.job_finding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Moutia bensaad\.gradle\caches\transforms-3\c2cb87f7f36b8e9cb8d4a503c1506824\transformed\core-1.9.0\AndroidManifest.xml:26:22-94

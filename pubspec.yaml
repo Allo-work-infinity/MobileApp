@@ -1,0 +1,49 @@
+name: job_finding
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.1 <3.0.0"  # Dart 2.x (your current SDK is 2.18.4)
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.4
+  google_fonts: ^2.3.1
+  intl: ^0.17.0
+  timeago: ^3.2.2
+  flutter_svg: ^1.0.3
+  badges: ^2.0.2
+  custom_pop_up_menu: ^1.2.3+1
+  toggle_switch: ^1.4.0
+  bottom_sheet: ^2.0.0
+  equatable: ^2.0.3
+  cached_network_image: ^3.2.0
+  grouped_list: ^4.2.0
+  flutter_rating_bar: ^4.0.0
+  smooth_page_indicator: ^1.0.0+2
+  auto_size_text: ^3.0.0
+  custom_check_box: ^0.0.4
+  shared_preferences: ^2.0.18
+  provider: ^6.0.5
+  dio: ^5.9.0                 # Works on Dart 2.18
+  country_code_picker: ^3.0.0
+  file_picker: 4.6.1          # Pin to 4.x (5.x/6.x require Dart 3)
+  url_launcher: 6.1.7         # ✅ pin here for Dart 2.18 compatibility
+  webview_flutter: ^2.0.12
+  image_picker: 0.8.6+4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.4
+  flutter_launcher_icons: 0.9.3
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
