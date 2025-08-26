@@ -2,6 +2,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:job_finding/modules/auth/controller/auth_controller.dart';
+import 'package:job_finding/router_name.dart';
 import 'package:provider/provider.dart';
 
 import 'package:job_finding/modules/SubscriptionPlan/controller/plan_controller.dart';
@@ -49,6 +51,7 @@ class _ManualPaymentScreenState extends State<ManualPaymentScreen> {
     }
 
     final planCtrl = context.read<PlanController>();
+    final authCtrl = context.read<AuthController>();
     // final planId = planCtrl.selected?.plan.id;
     //
     // if (planId == null) {
@@ -61,6 +64,7 @@ class _ManualPaymentScreenState extends State<ManualPaymentScreen> {
       // Appelle le flux complet :
       // 1) /api/payment/manual (upload preuve)
       // 2) /api/subscriptions/manual-from-transaction (crée l’abonnement en pending)
+      final bool hadActiveBefore = authCtrl.user?.hasActiveSubscription ?? false;
       await planCtrl.manualPayAndCreateSubscription(
         planId: widget.subscriptionId,
         amount: widget.amount,
@@ -88,6 +92,7 @@ class _ManualPaymentScreenState extends State<ManualPaymentScreen> {
       // );
 
       if (!mounted) return;
+      final String target = hadActiveBefore ? Routes.accountScreen: Routes.home;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const PaymentPendingScreen()),

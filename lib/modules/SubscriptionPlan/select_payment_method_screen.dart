@@ -119,7 +119,7 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
         : const SizedBox.shrink();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Select payment method')),
+      appBar: AppBar(title: const Text('Sélectionnez le mode de paiement')),
       body: Padding(
         padding: const EdgeInsets.all(Kdimensions.paddingSizeDefault),
         child: Column(
@@ -129,14 +129,14 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
             const SizedBox(height: 12),
             _MethodCard(
               title: 'Visa / Mastercard',
-              subtitle: _buying ? 'Starting checkout…' : 'Pay securely with your bank card',
+              subtitle: _buying ? 'Début du paiement…' : 'Payez en toute sécurité avec votre carte bancaire',
               onTap: _buying ? null : _payWithCard,
               leading: const Icon(Icons.credit_card, color: secondaryColor),
             ),
             const SizedBox(height: 12),
             _MethodCard(
-              title: 'Manual (Tunisia)',
-              subtitle: 'Virement Bancaire or D17',
+              title: 'Manuel (Tunisie)',
+              subtitle: 'Virement Bancaire ou D17',
               onTap: _goManual,
               leading: const Icon(Icons.account_balance, color: secondaryColor),
             ),

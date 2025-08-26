@@ -16,7 +16,7 @@ import 'package:job_finding/modules/SubscriptionPlan/controller/plan_controller.
 import 'package:job_finding/modules/SubscriptionPlan/model/subscription_plan.dart';
 import 'package:job_finding/modules/SubscriptionPlan/plans_screen.dart';
 import 'package:job_finding/modules/SubscriptionPlan/repository/subscription_plan_repository.dart'
-    show PlanWithExtras, SubscriptionMeta; // for the meta type
+    show PlanWithExtras, PlanWithState, SubscriptionMeta; // for the meta type
 
 // Optional: your profile screen
 import 'package:job_finding/modules/profile/profile_screen.dart';
@@ -47,7 +47,7 @@ class _AccountScreenState extends State<AccountScreen> {
     if (!_didRequestPlans) {
       _didRequestPlans = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        planCtrl.loadPlans();      // <-- load catalog so plansList isn’t empty
+        planCtrl.loadPlansForAccount();      // <-- load catalog so plansList isn’t empty
       });
     }
   }
@@ -166,8 +166,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   _SubscriptionSkeleton()
                 else
                   _SubscriptionCard(
-                    current: planCtrl.myPlan,               // PlanWithExtras?
-                    meta: planCtrl.mySubscription,          // SubscriptionMeta?
+                    plansFromApi: planCtrl.myPlansWithMeta,   // NEW
+                    current: planCtrl.myPlan,                 // keep for safety
+                    meta: planCtrl.mySubscription,            // keep for safety
                     onChangePlan: () {
                       Navigator.push(
                         context,
@@ -176,6 +177,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     },
                     onRefresh: () => context.read<PlanController>().loadMyCurrentPlan(),
                   ),
+
 
                 const SizedBox(height: 40),
 
@@ -207,13 +209,15 @@ class _AccountScreenState extends State<AccountScreen> {
 }
 
 class _SubscriptionCard extends StatelessWidget {
-  final PlanWithExtras? current;
-  final SubscriptionMeta? meta;
+  final List<PlanWithState>? plansFromApi; // NEW: full list from API
+  final PlanWithExtras? current;           // legacy fallback
+  final SubscriptionMeta? meta;            // legacy fallback
   final VoidCallback onChangePlan;
   final VoidCallback onRefresh;
 
   const _SubscriptionCard({
     Key? key,
+    required this.plansFromApi,
     required this.current,
     required this.meta,
     required this.onChangePlan,
@@ -224,31 +228,51 @@ class _SubscriptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final planCtrl = context.watch<PlanController>();
 
-    // All plans from catalog
-    final all = planCtrl.plans;
-    final currentId = planCtrl.myPlan?.plan.id;
-    final metaForCurrent = planCtrl.mySubscription;
+    // Prefer the API's full list; fallback to catalog if empty
+    final List<Widget> cards = <Widget>[];
 
-    // Build a card for every plan; add chips only for the current one
-    final List<Widget> cards = all.map((pwe) {
-      final p = pwe.plan;
-      final isCurrent = p.id == currentId;
+    if (plansFromApi != null && plansFromApi!.isNotEmpty) {
+      for (final item in plansFromApi!) {
+        cards.add(_PlanCard(
+          planName: item.plan.plan.name,
+          durationDays: item.plan.plan.durationDays,
+          price: item.plan.plan.price,
+          description: item.plan.plan.description,
+          meta: item.latestSubscription,       // meta per plan
+          isCurrent: item.isCurrent,           // flag per plan
+          onSelect: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => PlanDetailsScreen(plan: item.plan.plan)),
+            );
+          },
+        ));
+      }
+    } else {
+      // Fallback: render from catalog & only show chips on current
+      final all = planCtrl.plans;
+      final currentId = planCtrl.myPlan?.plan.id;
+      final metaForCurrent = planCtrl.mySubscription;
 
-      return _PlanCard(
-        planName: p.name,
-        durationDays: p.durationDays,
-        price: p.price,
-        description: p.description,
-        meta: isCurrent ? metaForCurrent : null, // chips only on current
-        isCurrent: isCurrent,
-        onSelect: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => PlanDetailsScreen(plan: p)),
-          );
-        },
-      );
-    }).toList();
+      for (final pwe in all) {
+        final p = pwe.plan;
+        final isCurrent = p.id == currentId;
+        cards.add(_PlanCard(
+          planName: p.name,
+          durationDays: p.durationDays,
+          price: p.price,
+          description: p.description,
+          meta: isCurrent ? metaForCurrent : null,
+          isCurrent: isCurrent,
+          onSelect: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => PlanDetailsScreen(plan: p)),
+            );
+          },
+        ));
+      }
+    }
 
     return Container(
       width: double.infinity,
@@ -272,11 +296,9 @@ class _SubscriptionCard extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: textColor),
             ),
             const SizedBox(height: 12),
-            ...cards, // <-- all plans rendered together
+            ...cards,
           ],
-
           const SizedBox(height: 12),
-          // Single button after the whole list
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -288,20 +310,8 @@ class _SubscriptionCard extends StatelessWidget {
       ),
     );
   }
-
-
-
-  Widget _chip(String label, String value) {
-    return Chip(
-      label: Text('$label: $value',
-          style: const TextStyle(fontSize: 12, color: textColor)),
-      backgroundColor: Colors.white,
-      side: BorderSide(color: labelColor.withOpacity(.3)),
-      visualDensity: VisualDensity.compact,
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
-    );
-  }
 }
+
 class _PlanCard extends StatelessWidget {
   final String planName;
   final int durationDays;

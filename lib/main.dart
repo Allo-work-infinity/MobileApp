@@ -43,7 +43,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  const String apiBaseUrl = 'http://192.168.1.193:8000';
+  const String apiBaseUrl = 'https://infinity.medlatrous.com';
 
   runApp(
     MultiProvider(

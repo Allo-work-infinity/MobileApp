@@ -1,9 +1,6 @@
 // lib/modules/SubscriptionPlan/plan_details_screen.dart
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:job_finding/modules/SubscriptionPlan/controller/payment_controller.dart';
-import 'package:job_finding/modules/SubscriptionPlan/payment_screen.dart';
 import 'package:job_finding/modules/SubscriptionPlan/select_payment_method_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -11,8 +8,6 @@ import 'controller/plan_controller.dart';
 import 'model/subscription_plan.dart';
 import 'package:job_finding/router_name.dart';
 import 'package:job_finding/utils/constants.dart';
-import 'package:job_finding/utils/k_images.dart';
-import 'package:job_finding/widget/teg_text.dart';
 import 'package:job_finding/modules/job_details/component/job_custom_app_bar.dart';
 import 'package:job_finding/modules/home/component/category_line_indicator_text.dart';
 import '../auth/controller/auth_controller.dart';
@@ -28,7 +23,7 @@ class PlanDetailsScreen extends StatefulWidget {
 class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
   int _currentIndex = 0;
   bool _buying = false;
-
+  bool _didLoadMyPlan = false;
   List<String> get _tabs {
     final hasDesc = (widget.plan.description ?? '').trim().isNotEmpty;
     final hasFeatures = widget.plan.features.isNotEmpty;
@@ -37,6 +32,61 @@ class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
     if (hasFeatures) items.add('Caractéristiques');
     if (items.isEmpty) items.add('Aperçu');
     return items;
+  }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_didLoadMyPlan) {
+      _didLoadMyPlan = true;
+      // fetch current subscription so the button knows what to do
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        context.read<PlanController>().loadMyCurrentPlan();
+      });
+    }
+  }
+  Future<void> _buyPlan() async {
+    final id = widget.plan.id;
+    if (id == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Plan ID manquant')),
+      );
+      return;
+    }
+
+    final planCtrl = context.read<PlanController>();
+
+    // If the controller doesn't know yet, fetch now (best effort)
+    if (planCtrl.mySubscription == null && planCtrl.loadingMyPlan == false) {
+      await planCtrl.loadMyCurrentPlan();
+    }
+
+    final samePlanActive =
+        (planCtrl.mySubscription?.isCurrent == true) &&
+            (planCtrl.myPlan?.plan.id == id);
+
+    if (samePlanActive) {
+      final rest = planCtrl.mySubscription?.remainingDays;
+      final msg = (rest != null)
+          ? 'Vous avez déjà un abonnement actif à ce plan. Il vous reste $rest jour${rest == 1 ? "" : "s"}.'
+          : 'Vous avez déjà un abonnement actif à ce plan.';
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+      return;
+    }
+
+    // Otherwise continue to your payment flow
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => SelectPaymentMethodScreen(
+          // you were passing the plan id here already; keeping it as-is
+          subscriptionId: id,
+          amount: widget.plan.price,
+          currency: 'TND',
+          description: 'Subscription: ${widget.plan.name}',
+        ),
+      ),
+    );
   }
 
   @override
@@ -97,33 +147,14 @@ class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
           children: [
             Flexible(
               child: ElevatedButton(
-                onPressed: () {
-                  final id = widget.plan.id;
-                  if (id == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Plan ID manquant')),
-                    );
-                    return;
-                  }
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => SelectPaymentMethodScreen(
-                        subscriptionId: id,
-                        amount: widget.plan.price,
-                        currency: 'TND', // ou la devise de ton plan si dispo
-                        description: 'Subscription: ${widget.plan.name}',
-                      ),
-                    ),
-                  );
-                },
+                onPressed: _buyPlan,
                 child: const Text("Acheter un plan"),
               ),
             ),
           ],
         ),
       ),
+
 
     );
   }
@@ -432,7 +463,7 @@ class _BuySheetBody extends StatelessWidget {
                 style: const TextStyle(fontSize: 14, color: Colors.black87, height: 1.5)),
           if (plan.features.isNotEmpty) ...[
             const SizedBox(height: 16),
-            const Text("What you’ll get", style: TextStyle(fontWeight: FontWeight.w600)),
+            const Text("Ce que vous obtiendrez", style: TextStyle(fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             ...plan.features.take(6).map(
                   (f) => Padding(

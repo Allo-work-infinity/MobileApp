@@ -121,7 +121,7 @@ class _WebViewPaimentState extends State<WebViewPaiment> {
       );
 
       // 5) Navigate: first-time subscribers go to account, others to home
-      final String target = hadActiveBefore ? Routes.home : Routes.accountScreen;
+      final String target = hadActiveBefore ? Routes.accountScreen: Routes.home;
       Navigator.of(context).pushNamedAndRemoveUntil(target, (_) => false);
     } catch (e) {
       if (!mounted) return;

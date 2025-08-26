@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const Text(
-              'Profil',
+              'Modifier le profil',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             )
           ],

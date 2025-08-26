@@ -8,7 +8,7 @@ class PlanController extends ChangeNotifier {
   final SubscriptionPlanRepository _repo;
 
   PlanController(this._repo);
-
+  List<PlanWithState> myPlansWithMeta = [];
   // ---------- State ----------
   bool loading = false;
   bool loadingMore = false;
@@ -27,7 +27,7 @@ class PlanController extends ChangeNotifier {
   bool includeJobOffers = false;
   bool withCounts = true;
 
-  // Non-paginated list
+  // Non-paginated list (catalog OR account list depending on loader used)
   List<PlanWithExtras> plans = [];
 
   // Paginated list
@@ -76,7 +76,7 @@ class PlanController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ---------- Non-paginated ----------
+  // ---------- Non-paginated (catalog) ----------
   Future<void> loadPlans() async {
     _setLoading(true);
     _setError(null);
@@ -87,7 +87,7 @@ class PlanController extends ChangeNotifier {
         includeJobOffers: includeJobOffers,
         withCounts: withCounts,
       );
-      plans = result;
+      plans = result; // full catalog
     } catch (e) {
       _setError(e.toString());
     } finally {
@@ -95,7 +95,30 @@ class PlanController extends ChangeNotifier {
     }
   }
 
-  // ---------- Paginated ----------
+  /// NEW: For Account screen — load ONLY the user’s subscribed plan
+  /// and expose it through `plans` so existing UI shows just one card.
+  Future<void> loadPlansForAccount() async {
+    _setLoading(true);
+    _setError(null);
+    try {
+      final resp = await _repo.getMyCurrentPlan(
+        includeJobOffers: includeJobOffers,
+        withCounts: withCounts,
+      );
+      myPlan = resp.plan;
+      mySubscription = resp.subscription;
+
+      // Show ONLY the subscribed plan in the list used by _SubscriptionCard
+      plans = (resp.plan != null) ? [resp.plan!] : [];
+    } catch (e) {
+      plans = [];
+      _setError(e.toString());
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // ---------- Paginated (catalog) ----------
   Future<void> loadFirstPage({int? perPageOverride}) async {
     _setLoading(true);
     _setError(null);
@@ -189,6 +212,7 @@ class PlanController extends ChangeNotifier {
       );
       myPlan = resp.plan;
       mySubscription = resp.subscription;
+      myPlansWithMeta = resp.plans;  // <-- keep the full list for UI
     } catch (e) {
       _setError(e.toString());
     } finally {
@@ -196,6 +220,8 @@ class PlanController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+
 
   void clearMyCurrentPlan() {
     myPlan = null;
@@ -251,6 +277,7 @@ class PlanController extends ChangeNotifier {
       await _repo.subscribe(planId);
       error = null;
       // Optionally refresh the current plan after subscribing
+      // await loadPlansForAccount();
       // await loadMyCurrentPlan();
     } catch (e) {
       error = e.toString();
@@ -265,15 +292,12 @@ class PlanController extends ChangeNotifier {
   // Manual Payment Flow (NEW)
   // ---------------------------------------------------------------------------
 
-  /// Step 1: Submit a manual payment with proof (image).
-  ///
-  /// Returns the backend payload (expects keys such as: transaction_id, status, proof_url).
   Future<Map<String, dynamic>> submitManualPayment({
     required double amount,
     required String method,      // 'bank_transfer' | 'd17'
     required String proofPath,   // local file path
     String currency = 'TND',
-    int? subscriptionId,         // if linking to an existing subscription
+    int? subscriptionId,
     String? manualReference,
     String? note,
   }) async {
@@ -303,12 +327,9 @@ class PlanController extends ChangeNotifier {
     }
   }
 
-  /// Step 2: Create a PENDING subscription linked to the manual transaction.
-  ///
-  /// Returns backend payload (subscription_id, subscription_status, payment_status, transaction_id).
   Future<Map<String, dynamic>> createSubscriptionFromManual({
     required int planId,
-    required int transactionId,
+    required int transactionId, // keep signature clear even if backend links internally
     bool autoRenewal = false,
   }) async {
     _setManualSubmitting(true);
@@ -316,7 +337,6 @@ class PlanController extends ChangeNotifier {
     try {
       final resp = await _repo.createSubscriptionFromManual(
         planId: planId,
-
       );
 
       lastManualSubscriptionId = (resp['subscription_id'] as num?)?.toInt();
@@ -333,21 +353,6 @@ class PlanController extends ChangeNotifier {
     }
   }
 
-  /// Convenience wrapper: submit proof THEN create the pending subscription.
-  ///
-  /// Returns a combined map:
-  /// {
-  ///   'payment': { ...response of /api/payment/manual... },
-  ///   'subscription': { ...response of /api/subscriptions/manual-from-transaction... }
-  /// }
-  /// Create the subscription first, then submit the manual payment proof
-  /// referencing that subscription_id.
-  ///
-  /// Returns a combined payload:
-  /// {
-  ///   'subscription_id': <int>,
-  ///   'payment': <Map from /api/payment/manual>
-  /// }
   Future<Map<String, dynamic>> manualPayAndCreateSubscription({
     required int planId,
     required double amount,
@@ -361,7 +366,6 @@ class PlanController extends ChangeNotifier {
     _setManualSubmitting(true);
     _setError(null);
     try {
-      // 1) Create the pending subscription and capture its response (contains subscription_id, dates, amount, plan, etc.)
       final subResp = await _repo.createSubscriptionFromManual(
         planId: planId,
       );
@@ -371,28 +375,25 @@ class PlanController extends ChangeNotifier {
         throw Exception('Missing subscription_id from manual subscription response');
       }
 
-      // 2) Submit the manual payment, linked to this subscription_id.
       final paymentResp = await submitManualPayment(
         amount: amount,
         method: method,
         proofPath: proofPath,
         currency: currency,
-        subscriptionId: subId,               // <— important: link payment to the newly created subscription
+        subscriptionId: subId,
         manualReference: manualReference,
         note: note,
       );
 
-      // 3) Update local state (for UI)
       lastManualSubscriptionId = subId;
       lastManualTransactionId = (paymentResp['transaction_id'] as num?)?.toInt();
       lastManualStatus = paymentResp['status_label']?.toString() ?? paymentResp['status']?.toString();
       lastProofUrl = paymentResp['proof_url']?.toString();
 
-      // 4) (Optional) Refresh current plan to reflect "pending" state
       await loadMyCurrentPlan();
 
       return {
-        'subscription': subResp, // contains subscription_id, start_date, end_date, amount_paid, plan, etc.
+        'subscription': subResp,
         'payment': paymentResp,
       };
     } catch (e) {
@@ -402,6 +403,4 @@ class PlanController extends ChangeNotifier {
       _setManualSubmitting(false);
     }
   }
-
-
 }

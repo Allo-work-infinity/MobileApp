@@ -328,20 +328,20 @@ class _HomeViewState extends State<HomeView> {
               child: Center(child: SvgPicture.asset(Kimages.drawerIcon)),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, Routes.notificationScreen);
-            },
-            child: Badge(
-              badgeContent: const Text(''),
-              position: BadgePosition.topEnd(end: 0, top: -10),
-              child: SvgPicture.asset(
-                Kimages.notificationIcon,
-                height: 24,
-                width: 24,
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.pushNamed(context, Routes.notificationScreen);
+          //   },
+          //   child: Badge(
+          //     badgeContent: const Text(''),
+          //     position: BadgePosition.topEnd(end: 0, top: -10),
+          //     child: SvgPicture.asset(
+          //       Kimages.notificationIcon,
+          //       height: 24,
+          //       width: 24,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

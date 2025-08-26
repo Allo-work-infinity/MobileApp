@@ -101,8 +101,11 @@ class AuthController extends ChangeNotifier {
       _retryAt = null;
       _error = null;
       return true;
+    } on ApiException catch (e) {
+      _error = e.message;           // <- clean French text from API
+      return false;
     } catch (e) {
-      _error = e.toString();
+      _error = 'Erreur inattendue. Veuillez réessayer.';
       return false;
     } finally {
       _setLoading(false);

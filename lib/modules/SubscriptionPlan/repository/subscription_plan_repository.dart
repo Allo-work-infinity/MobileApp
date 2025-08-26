@@ -2,6 +2,46 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:job_finding/modules/SubscriptionPlan/model/subscription_plan.dart';
+// lib/modules/SubscriptionPlan/repository/subscription_plan_repository.dart
+
+class PlanWithState {
+  final PlanWithExtras plan;
+  final SubscriptionMeta? latestSubscription;
+  final bool isCurrent;
+
+  PlanWithState({
+    required this.plan,
+    required this.latestSubscription,
+    required this.isCurrent,
+  });
+
+  factory PlanWithState.fromJson(
+      Map<String, dynamic> json,
+      PlanWithExtras Function(Map<String, dynamic>) mapPlanWithExtras,
+      ) {
+    final planJson = (json['plan'] as Map?)?.cast<String, dynamic>() ?? const {};
+    final latestJson = (json['latest_subscription'] as Map?)?.cast<String, dynamic>();
+    return PlanWithState(
+      plan: mapPlanWithExtras(planJson),
+      latestSubscription: latestJson == null
+          ? null
+          : SubscriptionMeta.fromJson(Map<String, dynamic>.from(latestJson)),
+      isCurrent: (json['is_current'] == true),
+    );
+  }
+}
+
+class CurrentPlanResponse {
+  final PlanWithExtras? plan;            // current plan (if any)
+  final SubscriptionMeta? subscription;  // current subscription meta
+  final List<PlanWithState> plans;       // <-- all plans with latest sub + is_current
+
+  CurrentPlanResponse({
+    required this.plan,
+    required this.subscription,
+    required this.plans,
+  });
+}
 
 /// Optional tiny model for included job offers
 class JobOfferRef {
@@ -58,12 +98,18 @@ class SubscriptionMeta {
   });
 
   factory SubscriptionMeta.fromJson(Map<String, dynamic> json) {
+    double? _toDouble(dynamic v) {
+      if (v == null) return null;
+      if (v is num) return v.toDouble();
+      return double.tryParse(v.toString());
+    }
+
     return SubscriptionMeta(
       id: (json['id'] as num).toInt(),
       status: (json['status'] ?? '').toString(),
       paymentStatus: json['payment_status']?.toString(),
       paymentMethod: json['payment_method']?.toString(),
-      amountPaid: json['amount_paid'] == null ? null : (json['amount_paid'] as num).toDouble(),
+      amountPaid: _toDouble(json['amount_paid']),
       startDate: json['start_date'] != null ? DateTime.tryParse(json['start_date'].toString()) : null,
       endDate: json['end_date'] != null ? DateTime.tryParse(json['end_date'].toString()) : null,
       autoRenewal: (json['auto_renewal'] ?? false) == true,
@@ -73,17 +119,9 @@ class SubscriptionMeta {
   }
 }
 
-/// Response wrapper for /api/me/subscription/current-plan
-class CurrentPlanResponse {
-  final PlanWithExtras? plan;
-  final SubscriptionMeta? subscription;
+/// Response wrapper for /api/subscription/current-plan
 
-  const CurrentPlanResponse({this.plan, this.subscription});
 
-  bool get hasActivePlan => subscription?.isCurrent == true;
-}
-
-/// Generic pagination container for Laravel paginator responses
 class Paginated<T> {
   final List<T> items;
   final int currentPage;
@@ -103,9 +141,6 @@ class Paginated<T> {
 class SubscriptionPlanRepository {
   final String baseUrl; // e.g. http://10.0.2.2:8000
   final http.Client _client;
-
-  /// Sync token getter (e.g. () => context.read<AuthController>().token)
-  /// If your endpoints are public, you can pass `() => null`.
   final String? Function()? _tokenProvider;
 
   SubscriptionPlanRepository({
@@ -117,7 +152,7 @@ class SubscriptionPlanRepository {
 
   // -------------------- Public API --------------------
 
-  /// GET /api/plans (non-paginated)
+  /// GET /api/plans (non-paginated) — catalog
   Future<List<PlanWithExtras>> listPlans({
     String? q,
     bool? active, // default server-side = true
@@ -132,8 +167,7 @@ class SubscriptionPlanRepository {
       'paginate': '0',
     };
 
-    final uri =
-    Uri.parse('$baseUrl/api/plans').replace(queryParameters: params);
+    final uri = Uri.parse('$baseUrl/api/plans').replace(queryParameters: params);
     final res = await _client.get(uri, headers: await _jsonHeaders());
 
     final data = _decode(res);
@@ -141,13 +175,13 @@ class SubscriptionPlanRepository {
 
     if (data is List) {
       return data
-          .map((e) => _mapPlanWithExtras(Map<String, dynamic>.from(e)))
+          .map((e) => _mapPlanWithExtras(Map<String, dynamic>.from(e as Map)))
           .toList();
     }
     throw Exception('Unexpected response format');
   }
 
-  /// GET /api/plans (paginated)
+  /// GET /api/plans (paginated) — catalog
   Future<Paginated<PlanWithExtras>> listPlansPaginated({
     String? q,
     bool? active, // default server-side = true
@@ -166,16 +200,14 @@ class SubscriptionPlanRepository {
       'page': page.toString(),
     };
 
-    final uri =
-    Uri.parse('$baseUrl/api/plans').replace(queryParameters: params);
+    final uri = Uri.parse('$baseUrl/api/plans').replace(queryParameters: params);
     final res = await _client.get(uri, headers: await _jsonHeaders());
 
     final data = _decode(res);
     _throwIfNotOk(res, data);
 
-    // Laravel paginator shape: { data: [...], current_page, last_page, per_page, total, ... }
     final items = (data['data'] as List)
-        .map((e) => _mapPlanWithExtras(Map<String, dynamic>.from(e)))
+        .map((e) => _mapPlanWithExtras(Map<String, dynamic>.from(e as Map)))
         .toList();
 
     return Paginated<PlanWithExtras>(
@@ -187,7 +219,7 @@ class SubscriptionPlanRepository {
     );
   }
 
-  /// GET /api/plans/{id}
+  /// GET /api/plans/{id} — single catalog plan
   Future<PlanWithExtras> getPlan(
       int id, {
         bool includeJobOffers = false,
@@ -198,35 +230,35 @@ class SubscriptionPlanRepository {
       'with_counts': withCounts ? '1' : '0',
     };
 
-    final uri = Uri.parse('$baseUrl/api/plans/$id')
-        .replace(queryParameters: params);
+    final uri = Uri.parse('$baseUrl/api/plans/$id').replace(queryParameters: params);
     final res = await _client.get(uri, headers: await _jsonHeaders());
 
     final data = _decode(res);
     _throwIfNotOk(res, data);
 
-    return _mapPlanWithExtras(Map<String, dynamic>.from(data));
+    return _mapPlanWithExtras(Map<String, dynamic>.from(data as Map));
   }
 
-  /// POST /api/subscriptions  (subscribe to a plan)
+  /// POST /api/subscriptions — subscribe to a plan
   Future<void> subscribe(int planId) async {
     final uri = Uri.parse('$baseUrl/api/subscriptions');
     final res = await _client.post(
       uri,
       headers: await _jsonHeaders(),
-      body: jsonEncode({
-        'plan_id': planId,
-      }),
+      body: jsonEncode({'plan_id': planId}),
     );
 
     final data = _decode(res);
     _throwIfNotOk(res, data);
   }
 
-  /// GET /api/me/subscription/current-plan
+  /// GET /api/subscription/current-plan
   ///
-  /// Returns a wrapper with the current plan (if any) and subscription meta.
-  /// If the user has no current plan, `plan` and `subscription` may be null.
+  /// New API shape:
+  /// {
+  ///   "current": { "plan": {...} | null, "subscription": {...} | null },
+  ///   "plans": [ ... ] // optional history (ignored here)
+  /// }
   Future<CurrentPlanResponse> getMyCurrentPlan({
     bool includeJobOffers = false,
     bool withCounts = true,
@@ -247,100 +279,32 @@ class SubscriptionPlanRepository {
       throw Exception('Unexpected response format');
     }
 
+    // Support both nested and legacy shapes
+    final current = (data['current'] as Map?)?.cast<String, dynamic>();
+    final planJson = (current?['plan'] ?? data['plan']);
+    final subJson  = (current?['subscription'] ?? data['subscription']);
+
     PlanWithExtras? plan;
-    final planJson = data['plan'];
-    if (planJson is Map<String, dynamic>) {
-      plan = _mapPlanWithExtras(Map<String, dynamic>.from(planJson));
+    if (planJson is Map) {
+      plan = _mapPlanWithExtras(Map<String, dynamic>.from(planJson.cast<String, dynamic>()));
     }
 
     SubscriptionMeta? sub;
-    final subJson = data['subscription'];
-    if (subJson is Map<String, dynamic>) {
-      sub = SubscriptionMeta.fromJson(subJson);
+    if (subJson is Map) {
+      sub = SubscriptionMeta.fromJson(Map<String, dynamic>.from(subJson.cast<String, dynamic>()));
     }
 
-    return CurrentPlanResponse(plan: plan, subscription: sub);
-  }
+    // NEW: parse the array of plans with latest_subscription
+    final List<dynamic>? plansArr = data['plans'] as List?;
+    final List<PlanWithState> allPlans = (plansArr ?? [])
+        .whereType<Map>()
+        .map((raw) => PlanWithState.fromJson(
+      Map<String, dynamic>.from(raw.cast<String, dynamic>()),
+          (m) => _mapPlanWithExtras(m),
+    ))
+        .toList();
 
-  // ---------------------------------------------------------------------------
-  // Manual Payment Flow (NEW)
-  // ---------------------------------------------------------------------------
-
-  /// POST /api/payment/manual  (multipart/form-data)
-  ///
-  /// Submits a manual payment with an image proof and returns the created
-  /// transaction JSON. Expects Sanctum bearer token.
-  ///
-  /// Returns a Map with keys like:
-  /// { status, transaction_id, amount, currency, payment_method, status_label, proof_url, created_at }
-  Future<Map<String, dynamic>> submitManualPayment({
-    required double amount,
-    required String method,      // 'bank_transfer' | 'd17'
-    required String proofPath,   // local image path
-    String currency = 'TND',
-    int? subscriptionId,         // optional to link to an existing user_subscriptions.id
-    String? manualReference,
-    String? note,
-  }) async {
-    final uri = Uri.parse('$baseUrl/api/payment/manual');
-
-    final req = http.MultipartRequest('POST', uri)
-      ..fields['amount'] = amount.toStringAsFixed(2)
-      ..fields['method'] = method
-      ..fields['currency'] = currency;
-
-    if (subscriptionId != null) {
-      req.fields['subscription_id'] = subscriptionId.toString();
-    }
-    if (manualReference != null && manualReference.isNotEmpty) {
-      req.fields['manual_reference'] = manualReference;
-    }
-    if (note != null && note.isNotEmpty) {
-      req.fields['note'] = note;
-    }
-
-    req.files.add(await http.MultipartFile.fromPath('proof', proofPath));
-
-    // Auth header (NO content-type here; MultipartRequest handles it)
-    final token = _tokenProvider?.call();
-    if (token != null && token.isNotEmpty) {
-      req.headers['Authorization'] = 'Bearer $token';
-    }
-    req.headers['Accept'] = 'application/json';
-
-    final res = await _sendMultipart(req);
-    final data = _decode(res);
-    _throwIfNotOk(res, data);
-
-    if (data is Map<String, dynamic>) return data;
-    throw Exception('Unexpected response format from /api/payment/manual');
-  }
-
-  /// POST /api/subscriptions/manual-from-transaction  (JSON)
-  ///
-  /// Creates a PENDING UserSubscription and links it to an existing
-  /// manual PaymentTransaction (created just before with submitManualPayment).
-  ///
-  /// Returns a Map with: { status, subscription_id, subscription_status, payment_status, transaction_id }
-  Future<Map<String, dynamic>> createSubscriptionFromManual({
-    required int planId,
-  }) async {
-    final uri = Uri.parse('$baseUrl/api/subscriptions/manual-from-transaction');
-
-    final res = await _client.post(
-      uri,
-      headers: await _jsonHeaders(),
-      body: jsonEncode({
-        'plan_id': planId,
-        'auto_renewal': false,
-      }),
-    );
-
-    final data = _decode(res);
-    _throwIfNotOk(res, data);
-
-    if (data is Map<String, dynamic>) return data;
-    throw Exception('Unexpected response format from manual-from-transaction');
+    return CurrentPlanResponse(plan: plan, subscription: sub, plans: allPlans);
   }
 
 
@@ -383,15 +347,19 @@ class SubscriptionPlanRepository {
     final plan = SubscriptionPlan.fromJson(json);
 
     int? jobOffersCount;
-    if (json.containsKey('job_offers_count') &&
-        json['job_offers_count'] != null) {
-      jobOffersCount = (json['job_offers_count'] as num).toInt();
+    final c = json['job_offers_count'];
+    if (c is num) {
+      jobOffersCount = c.toInt();
+    } else if (c is String) {
+      jobOffersCount = int.tryParse(c);
     }
 
     List<JobOfferRef>? offers;
-    if (json['job_offers'] is List) {
-      offers = (json['job_offers'] as List)
-          .map((e) => JobOfferRef.fromJson(Map<String, dynamic>.from(e)))
+    final raw = json['job_offers'];
+    if (raw is List) {
+      offers = raw
+          .whereType<Map>()
+          .map((e) => JobOfferRef.fromJson(Map<String, dynamic>.from(e.cast<String, dynamic>())))
           .toList();
     }
 
@@ -400,5 +368,63 @@ class SubscriptionPlanRepository {
       jobOffersCount: jobOffersCount,
       jobOffers: offers,
     );
+  }
+
+  // --- Multipart helpers for manual payments (unchanged public API) ---
+  Future<Map<String, dynamic>> submitManualPayment({
+    required double amount,
+    required String method,
+    required String proofPath,
+    String currency = 'TND',
+    int? subscriptionId,
+    String? manualReference,
+    String? note,
+  }) async {
+    final uri = Uri.parse('$baseUrl/api/payment/manual');
+
+    final req = http.MultipartRequest('POST', uri)
+      ..fields['amount'] = amount.toStringAsFixed(2)
+      ..fields['method'] = method
+      ..fields['currency'] = currency;
+
+    if (subscriptionId != null) req.fields['subscription_id'] = subscriptionId.toString();
+    if (manualReference != null && manualReference.isNotEmpty) req.fields['manual_reference'] = manualReference;
+    if (note != null && note.isNotEmpty) req.fields['note'] = note;
+
+    req.files.add(await http.MultipartFile.fromPath('proof', proofPath));
+
+    final token = _tokenProvider?.call();
+    if (token != null && token.isNotEmpty) {
+      req.headers['Authorization'] = 'Bearer $token';
+    }
+    req.headers['Accept'] = 'application/json';
+
+    final res = await _sendMultipart(req);
+    final data = _decode(res);
+    _throwIfNotOk(res, data);
+
+    if (data is Map<String, dynamic>) return data;
+    throw Exception('Unexpected response format from /api/payment/manual');
+  }
+
+  Future<Map<String, dynamic>> createSubscriptionFromManual({
+    required int planId,
+  }) async {
+    final uri = Uri.parse('$baseUrl/api/subscriptions/manual-from-transaction');
+
+    final res = await _client.post(
+      uri,
+      headers: await _jsonHeaders(),
+      body: jsonEncode({
+        'plan_id': planId,
+        'auto_renewal': false,
+      }),
+    );
+
+    final data = _decode(res);
+    _throwIfNotOk(res, data);
+
+    if (data is Map<String, dynamic>) return data;
+    throw Exception('Unexpected response format from manual-from-transaction');
   }
 }

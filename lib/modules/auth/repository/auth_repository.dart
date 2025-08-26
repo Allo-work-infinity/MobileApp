@@ -272,16 +272,34 @@ class AuthRepository {
     }
   }
 
+// Somewhere in AuthRepository (or your shared http utils).
   void _throwIfNotOk(http.Response res, Map<String, dynamic> data) {
-    final okStatus = res.statusCode >= 200 && res.statusCode < 300;
-    final hasToken = data['access_token'] != null || data['token'] != null;
-    final success = data['success'] == true;
-    if (okStatus && (success || hasToken)) return;
+    final code = res.statusCode;
 
-    final msg = (data['message'] ?? data['errors']?.toString() ?? 'Request failed (${res.statusCode})').toString();
-    if (res.statusCode == 401) throw const AuthException('Unauthenticated', statusCode: 401);
-    throw ApiException(msg, statusCode: res.statusCode, payload: data);
+    if (code >= 200 && code < 300) return;
+
+    // 422 from Laravel ValidationException
+    if (code == 422) {
+      final errors = (data['errors'] as Map?)?.cast<String, dynamic>() ?? {};
+      // Prefer known fields, then any field, then fallback to message
+      final field = ['email', 'password'].firstWhere(
+            (k) => errors[k] != null,
+        orElse: () => errors.isNotEmpty ? errors.keys.first : '',
+      );
+
+      final msgs = (field.isNotEmpty ? errors[field] : null) as List?;
+      final msg = (msgs != null && msgs.isNotEmpty)
+          ? msgs.first.toString()
+          : (data['message'] ?? 'Données invalides.').toString();
+
+      throw ApiException(msg, statusCode: code, payload: data);
+    }
+
+    // 403, 401, 404, 500... use server message if present
+    final serverMsg = (data['message'] ?? 'Une erreur s’est produite.').toString();
+    throw ApiException(serverMsg, statusCode: code, payload: data);
   }
+
 
   Future<void> _saveToken(String token) async {
     final sp = await SharedPreferences.getInstance();
